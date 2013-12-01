@@ -38,15 +38,26 @@ SDMLeapMatrixPtr SDMLeapMatrixCreateFromAxisRadiansTranslation(SDMLeapVectorPtr 
 	float s = sin(angle);
 	float c = cos(angle);
 	float C = (1-c);
+	
+	float xx = VectorAxisTranslateXX(axisVector, s, c, C);
+	float xy = VectorAxisTranslateXY(axisVector, s, c, C);
+	float xz = VectorAxisTranslateXZ(axisVector, s, c, C);
+	SDMLeapVectorPtr xBasis = SDMLeapVectorCreateFromComponents(xx, xy, xz);
+	
+	float yx = VectorAxisTranslateYX(axisVector, s, c, C);
+	float yy = VectorAxisTranslateYY(axisVector, s, c, C);
+	float yz = VectorAxisTranslateYZ(axisVector, s, c, C);
+	SDMLeapVectorPtr yBasis = SDMLeapVectorCreateFromComponents(yx, yy, yz);
+	
+	float zx = VectorAxisTranslateZX(axisVector, s, c, C);
+	float zy = VectorAxisTranslateZY(axisVector, s, c, C);
+	float zz = VectorAxisTranslateZZ(axisVector, s, c, C);
+	SDMLeapVectorPtr zBasis = SDMLeapVectorCreateFromComponents(zx, zy, zz);
 		
-	SDMLeapVectorPtr xBasis = SDMLeapVectorCreateFromComponents(VectorAxisTranslateXX(axisVector, s, c, C), VectorAxisTranslateXY(axisVector, s, c, C), VectorAxisTranslateXZ(axisVector, s, c, C);
-																
-	SDMLeapVectorPtr yBasis = SDMLeapVectorCreateFromComponents(VectorAxisTranslateYX(axisVector, s, c, C), VectorAxisTranslateYY(axisVector, s, c, C), VectorAxisTranslateYZ(axisVector, s, c, C);
-																
-	SDMLeapVectorPtr zBasis = SDMLeapVectorCreateFromComponents(VectorAxisTranslateZX(axisVector, s, c, C), VectorAxisTranslateZY(axisVector, s, c, C), VectorAxisTranslateZZ(axisVector, s, c, C));
-	SDMLeapVectorRelease(axisVector);
 	SDMLeapVectorPtr origin = SDMLeapVectorCreateFromComponents(translate->x, translate->y, translate->z);
 	SDMLeapMatrixPtr matrix = SDMLeapMatrixCreateFromComponents(xBasis, yBasis, zBasis, origin);
+	
+	SDMLeapVectorRelease(axisVector);
 	SDMLeapVectorRelease(xBasis);
 	SDMLeapVectorRelease(yBasis);
 	SDMLeapVectorRelease(zBasis);
@@ -55,18 +66,13 @@ SDMLeapMatrixPtr SDMLeapMatrixCreateFromAxisRadiansTranslation(SDMLeapVectorPtr 
 }
 
 bool SDMLeapMatrixEqualsMatrix(SDMLeapMatrixPtr matrix, equalsMatrix) {
-	return (SDMLeapVectorEqualsVector(matrix->xBasis, equalsMatrix->xBasis) && 
-			SDMLeapVectorEqualsVector(matrix->yBasis, equalsMatrix->yBasis) && 
-			SDMLeapVectorEqualsVector(matrix->zBasis, equalsMatrix->zBasis) && 
-			SDMLeapVectorEqualsVector(matrix->origin, equalsMatrix->origin))
+	return MatrixCompareEquals(matrix, equalsMatrix);
 }
 
 SDMLeapVectorPtr SDMLeapMatrixTransformPoint(SDMLeapMatrixPtr matrix, SDMLeapVectorPtr point) {
 	SDMLeapVectorPtr xyz = SDMLeapMatrixTransformDirection(matrix, point);
-	
 	SDMLeapVectorPtr xyzo = SDMLeapVectorAddVector(xyz, matrix->origin);
 	SDMLeapVectorRelease(xyz);
-	
 	return xyzo;
 }
 

@@ -39,9 +39,7 @@ SDMLeapVectorPtr SDMLeapVectorCreateFromVector(SDMLeapVectorPtr vector) {
 }
 
 bool SDMLeapVectorEqualsVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr equalsVector) {
-	return (FloatCompareEqual(vector->x, equalsVector->x) && 
-			FloatCompareEqual(vector->y, equalsVector->y) && 
-			FloatCompareEqual(vector->z, equalsVector->z));
+	return VectorCompareEquals(vector, equalsVector);
 }
 
 float SDMLeapVectorGetMagnitude(SDMLeapVectorPtr vector) {
@@ -49,9 +47,7 @@ float SDMLeapVectorGetMagnitude(SDMLeapVectorPtr vector) {
 }
 
 float SDMLeapVectorDistanceToVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr distant) {
-	return sqrt(PointDistance(vector->x, distant->x) + 
-				PointDistance(vector->y, distant->y) + 
-				PointDistance(vector->z, distant->z));
+	return sqrt(PointDistance(vector->x, distant->x) + PointDistance(vector->y, distant->y) + PointDistance(vector->z, distant->z));
 }
 
 float SDMLeapVectorAngleToVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr distant) {
@@ -81,24 +77,38 @@ float SDMLeapVectorDotVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr dotVector
 }
 
 SDMLeapVectorPtr SDMLeapVectorNegate(SDMLeapVectorPtr vector) {
-	return SDMLeapVectorCreateFromComponents(VectorMultiX(vector,-1), VectorMultiY(vector,-1), VectorMultiZ(vector,-1));
+	float x = VectorMultiX(vector,FloatNegateConstant);
+	float y = VectorMultiY(vector,FloatNegateConstant);
+	float z = VectorMultiZ(vector,FloatNegateConstant);
+	return SDMLeapVectorCreateFromComponents(x, y, z);
 }
 
 SDMLeapVectorPtr SDMLeapVectorAddVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr addVector) {
-	return SDMLeapVectorCreateFromComponents(VectorAddX(vector, addVector), VectorAddY(vector, addVector), VectorAddZ(vector, addVector));
+	float x = VectorAddX(vector, addVector);
+	float y = VectorAddY(vector, addVector);
+	float z = VectorAddZ(vector, addVector);
+	return SDMLeapVectorCreateFromComponents(x, y, z);
 }
 
 SDMLeapVectorPtr SDMLeapVectorMinusVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr minusVector) {
-	return SDMLeapVectorCreateFromComponents(VectorMinusX(vector, minusVector), VectorMinusY(vector, minusVector), VectorMinusZ(vector, minusVector));
+	float x = VectorMinusX(vector, minusVector);
+	float y = VectorMinusY(vector, minusVector);
+	float z = VectorMinusZ(vector, minusVector);
+	return SDMLeapVectorCreateFromComponents(x, y, z);
 }
 
 SDMLeapVectorPtr SDMLeapVectorMultiplyVector(SDMLeapVectorPtr vector, float mul) {
-	return SDMLeapVectorCreateFromComponents(VectorMultiX(vector,mul), VectorMultiY(vector,mul), VectorMultiZ(vector,mul));
+	float x = VectorMultiX(vector,mul);
+	float y = VectorMultiY(vector,mul);
+	float z = VectorMultiZ(vector,mul);
+	return SDMLeapVectorCreateFromComponents(x, y, z);
 }
 
 SDMLeapVectorPtr SDMLeapVectorDivideVector(SDMLeapVectorPtr vector, float div) {
-	return SDMLeapVectorCreateFromComponents(VectorDivideX(vector, div), VectorDivideY(vector, div), VectorDivideZ(vector, div));
-}
+	float x = VectorDivideX(vector,div);
+	float y = VectorDivideY(vector,div);
+	float z = VectorDivideZ(vector,div);
+	return SDMLeapVectorCreateFromComponents(x, y, z);}
 
 SDMLeapVectorPtr SDMLeapVectorCrossVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr crossVector) {
 	float x = VectorCrossProductX(vector, crossVector);

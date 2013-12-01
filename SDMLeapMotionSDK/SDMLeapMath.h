@@ -10,6 +10,9 @@
 #define SDMLeapMotionSDK_SDMLeapMath_h
 
 #include "math.h"
+
+#define FloatNegateConstant -1.f
+
 #define FloatCompareEqual(a, b) ((float)fabs((a) - (b)) < FLT_EPSILON)
 
 #define PointDistance(a, b) ((a - b)*(a - b))
@@ -50,5 +53,8 @@
 #define VectorAxisTranslateZY(axisVector, s, c, C) (axisVector->z*axisVector->y*C + axisVector->x*s)
 #define VectorAxisTranslateZZ(axisVector, s, c, C) VectorAxisTranslateSame(axisVector->z, c, C)
 
+#define VectorCompareEquals(vector, equalsVector) (FloatCompareEqual(vector->x, equalsVector->x) && FloatCompareEqual(vector->y, equalsVector->y) && FloatCompareEqual(vector->z, equalsVector->z))
+
+#define MatrixCompareEquals(matrix, equalsMatrix) (SDMLeapVectorEqualsVector(matrix->xBasis, equalsMatrix->xBasis) && SDMLeapVectorEqualsVector(matrix->yBasis, equalsMatrix->yBasis) && SDMLeapVectorEqualsVector(matrix->zBasis, equalsMatrix->zBasis) && SDMLeapVectorEqualsVector(matrix->origin, equalsMatrix->origin))
 
 #endif
