@@ -9,10 +9,11 @@
 #ifndef SDMLeapMotionSDK_SDMLeapDevice_h
 #define SDMLeapMotionSDK_SDMLeapDevice_h
 
+#include "Leap.h"
 #include "SDMLeapMath.h"
 
 struct SDMLeapDevice {
-	
+	Leap::Device *_interfaceDevice;
 };
 
 typedef struct SDMLeapDevice* SDMLeapDevicePtr;
