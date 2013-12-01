@@ -12,4 +12,10 @@
 #include "SDMLeapMath.h"
 #include "SDMLeapVector.h"
 
+struct SDMLeapPointable {
+	
+};
+
+typedef struct SDMLeapPointable* SDMLeapPointablePtr;
+
 #endif
