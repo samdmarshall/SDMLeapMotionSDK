@@ -38,15 +38,12 @@ SDMLeapMatrixPtr SDMLeapMatrixCreateFromAxisRadiansTranslation(SDMLeapVectorPtr 
 	float s = sin(angle);
 	float c = cos(angle);
 	float C = (1-c);
-	SDMLeapVectorPtr xBasis = SDMLeapVectorCreateFromComponents((axisVector->x*axisVector->x*C + c),
-																(axisVector->x*axisVector->y*C - axisVector->z*s), 
-																(axisVector->x*axisVector->z*C + axisVector->y*s));
-	SDMLeapVectorPtr yBasis = SDMLeapVectorCreateFromComponents((axisVector->y*axisVector->x*C + axisVector->z*s), 
-																(axisVector->y*axisVector->y*C + c), 
-																(axisVector->y*axisVector->z*C - axisVector->x*s));
-	SDMLeapVectorPtr zBasis = SDMLeapVectorCreateFromComponents((axisVector->z*axisVector->x*C - axisVector->y*s), 
-																(axisVector->z*axisVector->y*C + axisVector->x*s), 
-																(axisVector->z*axisVector->z*C + c));
+		
+	SDMLeapVectorPtr xBasis = SDMLeapVectorCreateFromComponents(VectorAxisTranslateXX(axisVector, s, c, C), VectorAxisTranslateXY(axisVector, s, c, C), VectorAxisTranslateXZ(axisVector, s, c, C);
+																
+	SDMLeapVectorPtr yBasis = SDMLeapVectorCreateFromComponents(VectorAxisTranslateYX(axisVector, s, c, C), VectorAxisTranslateYY(axisVector, s, c, C), VectorAxisTranslateYZ(axisVector, s, c, C);
+																
+	SDMLeapVectorPtr zBasis = SDMLeapVectorCreateFromComponents(VectorAxisTranslateZX(axisVector, s, c, C), VectorAxisTranslateZY(axisVector, s, c, C), VectorAxisTranslateZZ(axisVector, s, c, C));
 	SDMLeapVectorRelease(axisVector);
 	SDMLeapVectorPtr origin = SDMLeapVectorCreateFromComponents(translate->x, translate->y, translate->z);
 	SDMLeapMatrixPtr matrix = SDMLeapMatrixCreateFromComponents(xBasis, yBasis, zBasis, origin);
