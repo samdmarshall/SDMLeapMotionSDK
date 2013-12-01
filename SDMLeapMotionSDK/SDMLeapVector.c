@@ -123,12 +123,17 @@ SDMLeapVectorPtr SDMLeapVectorNormalize(SDMLeapVectorPtr vector) {
 	  return SDMLeapVectorCreateFromVector(SDMLeapVectorAxis(SDMLeapVectorAxisZero));
 	}
 	denom = 1.0f / sqrt(denom);
-	return SDMLeapVectorCreateFromComponents(VectorMultiX(vector,denom), VectorMultiY(vector,denom), VectorMultiZ(vector,denom));
+	SDMLeapVectorPtr resultVector = SDMLeapVectorCreateFromVector(vector);
+	return SDMLeapVectorMultiplyVector(resultVector, denom);
 }
 
 SDMLeapVectorPtr SDMLeapVectorAxis(enum SDMLeapVectorAxis axis) {
-	SDMLeapVector v = SDMLeapVectorDefinedVectors[axis];
-	SDMLeapVectorPtr vector = SDMLeapVectorCreateFromComponents(v.x, v.y, v.z);
+	SDMLeapVectorPtr vector;
+	if (axis < SDMLeapVectorAxisCount) {
+		vector = SDMLeapVectorCreateFromVector(&(SDMLeapVectorDefinedVectors[axis]));
+	} else {
+		vector = SDMLeapVectorCreateFromVector(&(SDMLeapVectorDefinedVectors[SDMLeapVectorAxisZero]));
+	}
 	return vector;
 }
 
