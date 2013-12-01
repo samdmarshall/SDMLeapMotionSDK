@@ -49,9 +49,9 @@ float SDMLeapVectorGetMagnitude(SDMLeapVectorPtr vector) {
 }
 
 float SDMLeapVectorDistanceToVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr distant) {
-	return sqrt(((vector->x - distant->x)*(vector->x - distant->x)) + 
-				((vector->y - distant->y)*(vector->y - distant->y)) + 
-				((vector->z - distant->z)*(vector->z - distant->z)));
+	return sqrt(PointDistance(vector->x, distant->x) + 
+				PointDistance(vector->y, distant->y) + 
+				PointDistance(vector->z, distant->z));
 }
 
 float SDMLeapVectorAngleToVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr distant) {
@@ -77,7 +77,7 @@ float SDMLeapVectorYaw(SDMLeapVectorPtr vector) {
 }
 
 float SDMLeapVectorDotVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr dotVector) {
-	return ((vector->x*dotVector->x) + (vector->y*dotVector->y) + (vector->z*dotVector->z));
+	return VectorDotProduct(vector, dotVector);
 }
 
 SDMLeapVectorPtr SDMLeapVectorNegate(SDMLeapVectorPtr vector) {
@@ -101,9 +101,9 @@ SDMLeapVectorPtr SDMLeapVectorDivideVector(SDMLeapVectorPtr vector, float div) {
 }
 
 SDMLeapVectorPtr SDMLeapVectorCrossVector(SDMLeapVectorPtr vector, SDMLeapVectorPtr crossVector) {
-	float x = (vector->y * crossVector->z) - (vector->z * crossVector->y);
-	float y = (vector->z * crossVector->x) - (vector->x * crossVector->z);
-	float z = (vector->x * crossVector->y) - (vector->y * crossVector->x);
+	float x = VectorCrossProductX(vector, crossVector);
+	float y = VectorCrossProductY(vector, crossVector);
+	float z = VectorCrossProductZ(vector, crossVector);
 	return SDMLeapVectorCreateFromComponents(x, y, z);
 }
 

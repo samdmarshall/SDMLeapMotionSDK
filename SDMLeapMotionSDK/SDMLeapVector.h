@@ -13,15 +13,15 @@
 
 enum SDMLeapVectorAxis {
 	SDMLeapVectorAxisZero = 0x0,
-	SDMLeapVectorAxisX = 0x1,
-	SDMLeapVectorAxisY = 0x2,
-	SDMLeapVectorAxisZ = 0x3,
-	SDMLeapVectorAxisLeft = 0x4,
-	SDMLeapVectorAxisRight = 0x5,
-	SDMLeapVectorAxisDown = 0x6,
-	SDMLeapVectorAxisUp = 0x7,
-	SDMLeapVectorAxisForward = 0x8,
-	SDMLeapVectorAxisBackward = 0x9,
+	SDMLeapVectorAxisX,
+	SDMLeapVectorAxisY,
+	SDMLeapVectorAxisZ,
+	SDMLeapVectorAxisLeft,
+	SDMLeapVectorAxisRight,
+	SDMLeapVectorAxisDown,
+	SDMLeapVectorAxisUp,
+	SDMLeapVectorAxisForward,
+	SDMLeapVectorAxisBackward,
 	SDMLeapVectorAxisCount
 };
 

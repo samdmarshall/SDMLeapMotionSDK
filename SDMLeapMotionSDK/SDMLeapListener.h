@@ -13,7 +13,18 @@
 
 #include "SDMLeapMath.h"
 
-typedef void (*SDMLeapListenerCallback)(void *, void *);
+enum SDMLeapListenerCallbackType {
+	SDMLeapListenerCallbackTypeInit = 0x0,
+	SDMLeapListenerCallbackTypeConnect,
+	SDMLeapListenerCallbackTypeDisconnect,
+	SDMLeapListenerCallbackTypeExit,
+	SDMLeapListenerCallbackTypeFrame,
+	SDMLeapListenerCallbackTypeFocusGained,
+	SDMLeapListenerCallbackTypeFocusLost,
+	SDMLeapListenerCallbackTypeCount
+};
+
+typedef void (*SDMLeapListenerCallback)(SDMLeapListenerPtr, void *);
 
 struct SDMLeapListener {
 	dispatch_queue_t listenerQueue;
