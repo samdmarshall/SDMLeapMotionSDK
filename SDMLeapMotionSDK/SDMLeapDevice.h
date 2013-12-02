@@ -11,9 +11,10 @@
 
 #include "Leap.h"
 #include "SDMLeapMath.h"
+#include "SDMLeapVector.h"
 
 struct SDMLeapDevice {
-	Leap::Device *_interfaceDevice;
+	Leap::Device *interfaceDevice;
 };
 
 typedef struct SDMLeapDevice* SDMLeapDevicePtr;
@@ -25,5 +26,20 @@ struct SDMLeapDeviceArray {
 
 typedef struct SDMLeapDeviceArray* SDMLeapDeviceArrayPtr;
 
+SDMLeapDevicePtr SDMLeapDeviceCreate(Leap::Device *leapDevice);
+
+SDMLeapDeviceArrayPtr SDMLeapDeviceArrayAdd(SDMLeapDeviceArrayPtr array, SDMLeapDevicePtr device);
+
+float SDMLeapDeviceHorizontalView(SDMLeapDevicePtr device);
+float SDMLeapDeviceVerticalView(SDMLeapDevicePtr device);
+float SDMLeapDeviceRange(SDMLeapDevicePtr device);
+float SDMLeapDeviceDistanceToBoundry(SDMLeapDevicePtr device, SDMLeapVectorPtr vector);
+
+bool SDMLeapDeviceIsValid(SDMLeapDevicePtr device);
+bool SDMLeapDeviceEqualsDevice(SDMLeapDevicePtr device, SDMLeapDevicePtr otherDevice);
+
+SDMLeapDevicePtr SDMLeapDeviceCreateInvalidDevice();
+
+void SDMLeapDeviceRelease(SDMLeapDevicePtr device);
 
 #endif

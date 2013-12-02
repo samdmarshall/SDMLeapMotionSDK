@@ -20,5 +20,14 @@ struct SDMLeapMotionController {
 
 typedef struct SDMLeapMotionController* SDMLeapMotionControllerPtr;
 
+SDMLeapMotionControllerPtr SDMLeapMotionControllerCreate();
+
+void SDMLeapMotionControllerAddListener(SDMLeapMotionControllerPtr controller, SDMLeapListenerPtr listener);
+void SDMLeapMotionControllerAddDevice(SDMLeapMotionControllerPtr controller, SDMLeapDevicePtr device);
+
+bool SDMLeapMotionControllerIsConnected(SDMLeapMotionControllerPtr controller);
+bool SDMLeapMotionControllerHasFocus(SDMLeapMotionControllerPtr controller);
+
+void SDMLeapMotionControllerRelease(SDMLeapMotionControllerPtr controller);
 
 #endif

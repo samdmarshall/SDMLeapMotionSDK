@@ -46,4 +46,10 @@ struct SDMLeapListenerArray {
 
 typedef struct SDMLeapListenerArray* SDMLeapListenerArrayPtr;
 
+SDMLeapListenerPtr SDMLeapListenerCreate();
+
+SDMLeapListenerArrayPtr SDMLeapListenerArrayAdd(SDMLeapListenerArrayPtr array, SDMLeapListenerPtr listener);
+
+void SDMLeapListenerRelease(SDMLeapListenerPtr listener);
+
 #endif
